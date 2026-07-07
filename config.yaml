@@ -1,0 +1,50 @@
+# 联赛强度系数映射
+league_strength:
+  1: 1.00    # 顶级联赛（英超、西甲、德甲、意甲、法甲、世界杯等）
+  2: 0.85    # 次级联赛（英冠、德乙、意乙等）
+  3: 0.75    # 三级及以下联赛
+  cup: 0.90  # 杯赛（欧冠、欧罗巴、国内杯赛）
+
+# 默认权重（P_clean, M, H, Q, Stability, Upset）
+weights:
+  p_clean: 0.30
+  m_factor: 0.15
+  h_factor: 0.15
+  q_score: 0.20
+  stability: 0.10
+  upset_signal: 0.10
+
+# 阈值设置
+thresholds:
+  a_score_entry: 0.55      # 选项入选阈值
+  a_score_downgrade: 0.45  # 降级阈值（所有选项均不达标时）
+  prob_high: 0.25          # 去偏概率高阈值
+  prob_low: 0.15           # 去偏概率低阈值
+  hedge_trigger: 0.35      # 核心组合最低概率，触发黑天鹅对冲
+  upset_detect: 0.10       # 赔率变化超过此值视为异常
+
+# 333法则约束
+constraints:
+  max_total_cost: 30       # 总投入上限（元）
+  max_combinations: 3      # 核心组合数量上限
+  max_multiplier: 3        # 单组合倍数上限
+  core_budget_ratio: 0.70  # 核心组合资金占比
+  hedge_budget_ratio: 0.20 # 对冲组合资金占比上限
+
+# 智能校准参数
+calibration:
+  rsi_hot_threshold: 0.75  # 市场过热阈值
+  rsi_discount: 0.95       # 过热时A_Score折扣
+  prd_max: 1.08            # PRD补偿上限
+  prd_min: 1.00            # PRD补偿下限
+  hedge_odds_min: 5.0      # 对冲选项最低赔率
+
+# 迭代校准
+iteration:
+  batch_size: 10           # 每N场比赛校准一次
+  smooth_factor: 0.8       # 权重平滑系数
+
+# 数据源
+data_sources:
+  primary: "https://m.sporttery.cn/mjc/jsq/zqhhgg/"
+  fallback_api: "https://i.sporttery.cn/api/odds/"
